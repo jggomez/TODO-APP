@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">todolist</string>
+    <string name="escribe_tarea">Que tienes que hacer ?</string>
+</resources>
