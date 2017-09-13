@@ -9,14 +9,16 @@ import co.edu.ucc.todolist.modelo.Tarea;
  * Created by jggomez on 05-Sep-17.
  */
 
-public class LTarea {
+public class LTarea implements ILtarea {
 
-    private static List<Tarea> lstTarea = new ArrayList<>();
+    public static List<Tarea> lstTarea = new ArrayList<>();
 
+    @Override
     public void addTarea(Tarea tarea){
         lstTarea.add(tarea);
     }
 
+    @Override
     public List<Tarea> getTareas(){
         return lstTarea;
     }
