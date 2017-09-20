@@ -18,7 +18,7 @@ import co.edu.ucc.todolist.vistas.presenters.IListPresenter;
 import co.edu.ucc.todolist.vistas.presenters.ListPresenter;
 
 public class ListActivity extends AppCompatActivity implements
-        IListView {
+        IListView, TodoListAdapter.OnListenerItemCheck {
 
     private IListPresenter listPresenter;
 
@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity implements
 
         List<Tarea> lsTarea = listPresenter.obtenerTareas();
 
-        rvListTODO.setAdapter(new TodoListAdapter(lsTarea));
+        rvListTODO.setAdapter(new TodoListAdapter(lsTarea, this));
 
     }
 
@@ -66,9 +66,13 @@ public class ListActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void refrescarTarea(int posicion, boolean estado) {
-
+    public void refrescarTarea(int posicion) {
+        rvListTODO.getAdapter().notifyItemChanged(posicion);
     }
 
+    @Override
+    public void itemCambioEstado(int posicion, boolean realizada) {
+        listPresenter.itemCambioEstado(posicion, realizada);
+    }
 
 }

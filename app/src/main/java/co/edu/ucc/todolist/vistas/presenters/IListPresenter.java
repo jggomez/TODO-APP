@@ -14,4 +14,6 @@ public interface IListPresenter {
 
     List<Tarea> obtenerTareas();
 
+    void itemCambioEstado(int posicion, boolean realizado);
+
 }

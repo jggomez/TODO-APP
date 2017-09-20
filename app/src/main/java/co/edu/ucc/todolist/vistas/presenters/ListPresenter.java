@@ -16,7 +16,7 @@ public class ListPresenter implements IListPresenter {
     private IListView view;
     private ILtarea ltarea;
 
-    public ListPresenter(IListView view){
+    public ListPresenter(IListView view) {
         this.view = view;
         ltarea = new LTarea();
     }
@@ -35,5 +35,11 @@ public class ListPresenter implements IListPresenter {
     @Override
     public List<Tarea> obtenerTareas() {
         return ltarea.getTareas();
+    }
+
+    @Override
+    public void itemCambioEstado(int posicion, boolean realizado) {
+        ltarea.getTareas().get(posicion).setRealizada(realizado);
+        view.refrescarTarea(posicion);
     }
 }

@@ -1,5 +1,6 @@
 package co.edu.ucc.todolist.vistas.adaptadores;
 
+import android.graphics.Paint;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import co.edu.ucc.todolist.R;
 import co.edu.ucc.todolist.modelo.Tarea;
 
@@ -19,10 +22,13 @@ import co.edu.ucc.todolist.modelo.Tarea;
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ItemTodoList> {
 
     private List<Tarea> dataset;
+    private OnListenerItemCheck onListenerItemCheck;
 
-    public TodoListAdapter(List<Tarea> dataset) {
+    public TodoListAdapter(List<Tarea> dataset,
+                           OnListenerItemCheck onListenerItemCheck) {
         super();
         this.dataset = dataset;
+        this.onListenerItemCheck = onListenerItemCheck;
     }
 
     @Override
@@ -37,6 +43,15 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ItemTo
     public void onBindViewHolder(ItemTodoList holder, int position) {
         Tarea tarea = dataset.get(position);
 
+        if(tarea.isRealizada()){
+            holder.tvTarea.setPaintFlags(holder.tvTarea.getPaintFlags()
+                    | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else{
+            holder.tvTarea.setPaintFlags(holder.tvTarea.getPaintFlags()
+                    & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
         holder.tvTarea.setText(tarea.getNombre());
         holder.chkTarea.setChecked(tarea.isRealizada());
     }
@@ -48,18 +63,35 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ItemTo
 
     public class ItemTodoList extends RecyclerView.ViewHolder {
 
-        //@BindView(R.id.chkTarea)
+        @BindView(R.id.chkTarea)
         AppCompatCheckBox chkTarea;
 
-        //@BindView(R.id.tvTarea)
+        @BindView(R.id.tvTarea)
         TextView tvTarea;
 
         public ItemTodoList(View itemView) {
             super(itemView);
-            //ButterKnife.bind(itemView);
 
-            chkTarea = (AppCompatCheckBox) itemView.findViewById(R.id.chkTarea);
-            tvTarea = (TextView) itemView.findViewById(R.id.tvTarea);
+            ButterKnife.bind(this, itemView);
+
+            if (onListenerItemCheck != null) {
+
+                chkTarea.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onListenerItemCheck.itemCambioEstado(getAdapterPosition(),
+                                chkTarea.isChecked());
+                    }
+                });
+            }
+
+
         }
+    }
+
+    public interface OnListenerItemCheck {
+
+        void itemCambioEstado(int posicion, boolean realizada);
+
     }
 }
