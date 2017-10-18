@@ -21,6 +21,7 @@ public class ListActivity extends AppCompatActivity implements
         IListView, TodoListAdapter.OnListenerItemCheck {
 
     private IListPresenter listPresenter;
+    private TodoListAdapter adapter;
 
     @BindView(R.id.rvListTODO)
     RecyclerView rvListTODO;
@@ -44,7 +45,9 @@ public class ListActivity extends AppCompatActivity implements
 
         List<Tarea> lsTarea = listPresenter.obtenerTareas();
 
-        rvListTODO.setAdapter(new TodoListAdapter(lsTarea, this));
+        adapter = new TodoListAdapter(lsTarea, this);
+
+        rvListTODO.setAdapter(adapter);
 
     }
 
@@ -56,7 +59,10 @@ public class ListActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void refrescarListaTareas() {
+    public void refrescarListaTareas(List<Tarea> lstTareas) {
+
+        adapter.setDataset(lstTareas);
+
         rvListTODO.getAdapter().notifyDataSetChanged();
 
         rvListTODO.scrollToPosition(
@@ -66,7 +72,8 @@ public class ListActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void refrescarTarea(int posicion) {
+    public void refrescarTarea(Tarea tarea, int posicion) {
+        adapter.setItemDataset(tarea, posicion);
         rvListTODO.getAdapter().notifyItemChanged(posicion);
     }
 

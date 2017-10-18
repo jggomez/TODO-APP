@@ -29,7 +29,7 @@ public class ListPresenter implements IListPresenter {
 
         ltarea.addTarea(objTarea);
 
-        view.refrescarListaTareas();
+        view.refrescarListaTareas(ltarea.getTareas());
     }
 
     @Override
@@ -39,7 +39,9 @@ public class ListPresenter implements IListPresenter {
 
     @Override
     public void itemCambioEstado(int posicion, boolean realizado) {
-        ltarea.getTareas().get(posicion).setRealizada(realizado);
-        view.refrescarTarea(posicion);
+        Tarea tarea = ltarea.obtenerXID(posicion + 1);
+        tarea.setRealizada(realizado);
+        ltarea.actualizar(tarea);
+        view.refrescarTarea(tarea, posicion);
     }
 }

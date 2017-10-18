@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.ucc.todolist.modelo.Tarea;
+import co.edu.ucc.todolist.repository.AppDB;
 
 /**
  * Created by jggomez on 05-Sep-17.
@@ -11,15 +12,29 @@ import co.edu.ucc.todolist.modelo.Tarea;
 
 public class LTarea implements ILtarea {
 
-    public static List<Tarea> lstTarea = new ArrayList<>();
+    private AppDB database;
+
+    public LTarea(){
+        database = AppDB.getInstancia();
+    }
 
     @Override
     public void addTarea(Tarea tarea){
-        lstTarea.add(tarea);
+        database.getTareaDAO().insert(tarea);
     }
 
     @Override
     public List<Tarea> getTareas(){
-        return lstTarea;
+        return database.getTareaDAO().obtenerTodos();
+    }
+
+    @Override
+    public void actualizar(Tarea... tareas) {
+        database.getTareaDAO().update(tareas);
+    }
+
+    @Override
+    public Tarea obtenerXID(int id) {
+        return database.getTareaDAO().obtenerXID(id);
     }
 }

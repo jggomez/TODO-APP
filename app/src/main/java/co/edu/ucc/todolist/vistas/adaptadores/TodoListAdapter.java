@@ -56,6 +56,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ItemTo
         holder.chkTarea.setChecked(tarea.isRealizada());
     }
 
+    public void setDataset(List<Tarea> dataset){
+        this.dataset = dataset;
+    }
+
+    public void setItemDataset(Tarea tarea, int index){
+        this.dataset.set(index, tarea);
+    }
+
     @Override
     public int getItemCount() {
         return dataset.size();

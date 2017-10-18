@@ -14,4 +14,8 @@ public interface ILtarea {
 
     List<Tarea> getTareas();
 
+    void actualizar(Tarea... tareas);
+
+    Tarea obtenerXID(int id);
+
 }
