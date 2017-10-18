@@ -38,7 +38,7 @@ public class AuthActivity extends AppCompatActivity
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.frameAuthActivity, RegistroFragment.newInstance());
+        transaction.replace(R.id.frameAuthActivity, LoginFragment.newInstance());
         transaction.commit();
     }
 }
