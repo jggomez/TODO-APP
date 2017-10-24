@@ -1,9 +1,13 @@
-package co.edu.ucc.todolist.vistas;
+package co.edu.ucc.todolist.vistas.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.List;
@@ -29,12 +33,17 @@ public class ListActivity extends AppCompatActivity implements
     @BindView(R.id.txtTarea)
     EditText txtTarea;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
 
         listPresenter = new ListPresenter(this);
 
@@ -82,4 +91,22 @@ public class ListActivity extends AppCompatActivity implements
         listPresenter.itemCambioEstado(posicion, realizada);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.salir){
+            Intent intent = new Intent(this, AuthActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

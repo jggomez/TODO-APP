@@ -1,4 +1,4 @@
-package co.edu.ucc.todolist.vistas;
+package co.edu.ucc.todolist.vistas.activities;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
@@ -28,16 +28,18 @@ public class AuthActivity extends AppCompatActivity
     }
 
     @Override
-    public void ingresar(String email) {
+    public void finalizarLogin() {
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public void clickReg(){
+    @Override
+    public void irARegistro() {
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
 
+        //TODO: cambiar login fragment a registro fragment
         transaction.replace(R.id.frameAuthActivity, LoginFragment.newInstance());
         transaction.commit();
     }

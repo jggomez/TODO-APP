@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvListTODO"
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:layout_gravity="top|center" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvListTODO"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|center"
+            android:layout_marginBottom="60dp" />
 
-        <EditText
-            android:id="@+id/txtTarea"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:hint="@string/escribe_tarea"
-            android:inputType="text" />
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btnEnviarTarea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:src="@android:drawable/ic_media_play" />
+            <EditText
+                android:id="@+id/txtTarea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:hint="@string/escribe_tarea"
+                android:inputType="text" />
 
-    </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btnEnviarTarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@android:drawable/ic_media_play" />
 
+        </LinearLayout>
+    </FrameLayout>
 
-</FrameLayout>
+</LinearLayout>

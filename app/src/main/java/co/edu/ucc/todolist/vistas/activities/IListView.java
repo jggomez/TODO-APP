@@ -1,4 +1,4 @@
-package co.edu.ucc.todolist.vistas;
+package co.edu.ucc.todolist.vistas.activities;
 
 import java.util.List;
 

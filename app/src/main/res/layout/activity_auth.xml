@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frameAuthActivity"
-    tools:context="co.edu.ucc.todolist.vistas.AuthActivity">
+    tools:context="co.edu.ucc.todolist.vistas.activities.AuthActivity">
 
 </FrameLayout>

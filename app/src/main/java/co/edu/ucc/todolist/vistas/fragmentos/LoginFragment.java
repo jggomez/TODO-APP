@@ -2,32 +2,26 @@ package co.edu.ucc.todolist.vistas.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.edu.ucc.todolist.R;
+import co.edu.ucc.todolist.vistas.presenters.ILoginPresenter;
+import co.edu.ucc.todolist.vistas.presenters.LoginPresenter;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Juan Guillermo Gómez
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements ILoginFragmentView {
 
     @BindView(R.id.txtEmailLogin)
     EditText txtEmail;
@@ -35,7 +29,16 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.txtPasswordLogin)
     EditText txtContrasena;
 
-    FirebaseAuth firebaseAuth;
+    @BindView(R.id.progress)
+    ProgressBar progress;
+
+    @BindView(R.id.btnIngresarLogin)
+    Button btnIngresarLogin;
+
+    @BindView(R.id.btnCrearCuenta)
+    Button btnCrearCuenta;
+
+    private ILoginPresenter loginPresenter;
 
     private OnLoginFragmentInteraction mListener;
 
@@ -60,28 +63,19 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        loginPresenter = new LoginPresenter(this);
 
         return view;
     }
 
     @OnClick(R.id.btnIngresarLogin)
-    public void clickIngresarLogin() {
+    public void login() {
 
         final String email = txtEmail.getText().toString();
         String contrasena = txtContrasena.getText().toString();
 
-        firebaseAuth.signInWithEmailAndPassword(email, contrasena)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            if (mListener != null) {
-                                mListener.ingresar(email);
-                            }
-                        }
-                    }
-                });
+        loginPresenter.login(email, contrasena);
+
     }
 
     @Override
@@ -101,19 +95,63 @@ public class LoginFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void habilitarVistas() {
+        txtContrasena.setEnabled(true);
+        txtEmail.setEnabled(true);
+        btnIngresarLogin.setEnabled(true);
+        btnCrearCuenta.setEnabled(true);
+    }
+
+    @Override
+    public void deshabilitarVistas() {
+        txtContrasena.setEnabled(false);
+        txtEmail.setEnabled(false);
+        btnIngresarLogin.setEnabled(false);
+        btnCrearCuenta.setEnabled(false);
+    }
+
+    @Override
+    public void mostrarProgress() {
+        progress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void ocultarProgress() {
+        progress.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.txtRecordarContrasena)
+    @Override
+    public void irARegistro() {
+        if (mListener != null) {
+            mListener.irARegistro();
+        }
+    }
+
+    @Override
+    public void finalizarLogin() {
+        if (mListener != null) {
+            mListener.finalizarLogin();
+        }
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        Snackbar.make(getView(), mensaje, Snackbar.LENGTH_LONG).show();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnLoginFragmentInteraction {
 
-        void ingresar(String email);
+        void finalizarLogin();
+
+        void irARegistro();
 
     }
 }

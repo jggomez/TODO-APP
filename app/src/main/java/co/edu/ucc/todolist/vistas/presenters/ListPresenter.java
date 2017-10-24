@@ -5,7 +5,7 @@ import java.util.List;
 import co.edu.ucc.todolist.dominio.ILtarea;
 import co.edu.ucc.todolist.dominio.LTarea;
 import co.edu.ucc.todolist.modelo.Tarea;
-import co.edu.ucc.todolist.vistas.IListView;
+import co.edu.ucc.todolist.vistas.activities.IListView;
 
 /**
  * Created by jggomez on 12-Sep-17.
