@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".vistas.activities.ListActivity" />
         <activity android:name=".vistas.activities.AuthActivity">
+
+        </activity>
+        <activity android:name=".vistas.activities.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

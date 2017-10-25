@@ -42,7 +42,7 @@ public class RegistroPresenter implements IRegistroPresenter {
 
                 @Override
                 public void error(String error) {
-                    view.deshabilitarControles();
+                    view.habilitarControles();
                     view.ocultarProgress();
                     view.mostrarError(error);
                 }
@@ -50,7 +50,7 @@ public class RegistroPresenter implements IRegistroPresenter {
 
 
         } catch (Exception e) {
-            view.deshabilitarControles();
+            view.habilitarControles();
             view.ocultarProgress();
             view.mostrarError(e.getMessage());
         }
