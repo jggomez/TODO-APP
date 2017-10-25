@@ -31,7 +31,8 @@ public class LUsuario implements ILUsuario {
     }
 
     @Override
-    public void crearUsuario(String password, final Usuario usuario, final CallBackInteractor<String> callBackInteractor) {
+    public void crearUsuario(String password, final Usuario usuario,
+                             final CallBackInteractor<String> callBackInteractor) {
 
         firebaseAuth.createUserWithEmailAndPassword(usuario.getEmail(), password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -41,6 +42,7 @@ public class LUsuario implements ILUsuario {
                             usuario.setUid(task.getResult().getUser().getUid());
                             refUsuarios.child(usuario.getUid())
                                     .setValue(usuario);
+                            callBackInteractor.success(usuario.getNombres());
                         } else {
                             callBackInteractor.error(task.getException().getMessage());
                         }
@@ -51,7 +53,8 @@ public class LUsuario implements ILUsuario {
     }
 
     @Override
-    public void authUsuario(String email, String password, final CallBackInteractor<String> callBackInteractor) {
+    public void authUsuario(String email, String password,
+                            final CallBackInteractor<String> callBackInteractor) {
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

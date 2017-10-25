@@ -85,7 +85,7 @@ public class LoginFragment extends Fragment implements ILoginFragmentView {
             mListener = (OnLoginFragmentInteraction) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnRegistroInteractionListener");
         }
     }
 
@@ -121,7 +121,7 @@ public class LoginFragment extends Fragment implements ILoginFragmentView {
         progress.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.txtRecordarContrasena)
+    @OnClick(R.id.btnCrearCuenta)
     @Override
     public void irARegistro() {
         if (mListener != null) {
