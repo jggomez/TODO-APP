@@ -6,11 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="BtnAuthStyle">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 
 </resources>

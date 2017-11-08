@@ -15,4 +15,7 @@
     <string name="nombres">Nombres</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="tienes_cuenta">Ya tienes una cuenta !!</string>
+    <string name="adicionar_tarea">Adicionar Tareas</string>
+    <string name="edit_perfil">Editar Perfil</string>
+    <string name="contactenos">Contactenos</string>
 </resources>
