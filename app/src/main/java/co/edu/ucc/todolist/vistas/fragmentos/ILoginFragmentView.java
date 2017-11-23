@@ -14,5 +14,6 @@ public interface ILoginFragmentView {
     void irARegistro();
     void finalizarLogin();
     void mostrarError(String mensaje);
+    void irRecordarPassword();
 
 }

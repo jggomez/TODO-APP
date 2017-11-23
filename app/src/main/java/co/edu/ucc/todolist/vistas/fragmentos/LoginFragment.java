@@ -141,6 +141,14 @@ public class LoginFragment extends Fragment implements ILoginFragmentView {
         Snackbar.make(getView(), mensaje, Snackbar.LENGTH_LONG).show();
     }
 
+    @OnClick(R.id.txtRecordarContrasena)
+    @Override
+    public void irRecordarPassword() {
+        if (mListener != null) {
+            mListener.irRecordarPassword();
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -152,6 +160,8 @@ public class LoginFragment extends Fragment implements ILoginFragmentView {
         void finalizarLogin();
 
         void irARegistro();
+
+        void irRecordarPassword();
 
     }
 }

@@ -13,4 +13,6 @@ public interface ILUsuario {
 
     void authUsuario(String email, String password,
                      CallBackInteractor<String> callBackInteractor);
+
+    void recordarPassword(String email, CallBackInteractor<Boolean> callBackInteractor);
 }

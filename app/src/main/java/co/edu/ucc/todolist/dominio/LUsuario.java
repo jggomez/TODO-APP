@@ -79,4 +79,20 @@ public class LUsuario implements ILUsuario {
                     }
                 });
     }
+
+    @Override
+    public void recordarPassword(String email, final CallBackInteractor<Boolean> callBackInteractor) {
+
+        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    callBackInteractor.success(true);
+                } else {
+                    callBackInteractor.error(task.getException().getMessage());
+                }
+
+            }
+        });
+    }
 }

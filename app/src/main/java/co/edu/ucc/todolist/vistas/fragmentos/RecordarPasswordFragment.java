@@ -13,41 +13,44 @@ import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import co.edu.ucc.todolist.R;
-import co.edu.ucc.todolist.vistas.presenters.IRegistroPresenter;
-import co.edu.ucc.todolist.vistas.presenters.RegistroPresenter;
+import co.edu.ucc.todolist.vistas.presenters.IRecordarPasswordPresenter;
+import co.edu.ucc.todolist.vistas.presenters.RecordarPasswordPresenter;
 
 /**
- * Juan Guillermo Gómez
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link RecordarPasswordFragment.OnRecordarPassInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link RecordarPasswordFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class RegistroFragment extends Fragment implements IRegistroFragmentView {
+public class RecordarPasswordFragment extends Fragment implements IRecordarPasswordView {
 
-    @BindView(R.id.txtEmailLogin)
-    EditText txtEmailLogin;
+    private OnRecordarPassInteractionListener mListener;
+    private IRecordarPasswordPresenter presenter;
 
-    @BindView(R.id.txtNombres)
-    EditText txtNombres;
+    @BindView(R.id.txtEmail)
+    private EditText txtEmail;
 
-    @BindView(R.id.txtPasswordLogin)
-    EditText txtPasswordLogin;
-
-    @BindView(R.id.btnCrearCuenta)
-    Button btnCrearCuenta;
+    @BindView(R.id.btnRecodarContrasena)
+    private Button btnRecodarContrasena;
 
     @BindView(R.id.progress)
     ProgressBar progress;
 
-    private IRegistroPresenter registroPresenter;
-
-    private OnRegistroInteractionListener mListener;
-
-    public RegistroFragment() {
+    public RecordarPasswordFragment() {
         // Required empty public constructor
     }
 
-    public static RegistroFragment newInstance() {
-        RegistroFragment fragment = new RegistroFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment RecordarPasswordFragment.
+     */
+    public static RecordarPasswordFragment newInstance() {
+        RecordarPasswordFragment fragment = new RecordarPasswordFragment();
         return fragment;
     }
 
@@ -55,23 +58,23 @@ public class RegistroFragment extends Fragment implements IRegistroFragmentView 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_registro, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_recordar_password, container, false);
         ButterKnife.bind(this, view);
 
-        registroPresenter = new RegistroPresenter(this);
+        presenter = new RecordarPasswordPresenter(this);
 
         return view;
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnRegistroInteractionListener) {
-            mListener = (OnRegistroInteractionListener) context;
+        if (context instanceof OnRecordarPassInteractionListener) {
+            mListener = (OnRecordarPassInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnRegistroInteractionListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -83,18 +86,14 @@ public class RegistroFragment extends Fragment implements IRegistroFragmentView 
 
     @Override
     public void habilitarControles() {
-        txtNombres.setEnabled(true);
-        txtEmailLogin.setEnabled(true);
-        txtPasswordLogin.setEnabled(true);
-        btnCrearCuenta.setEnabled(true);
+        txtEmail.setEnabled(true);
+        btnRecodarContrasena.setEnabled(true);
     }
 
     @Override
     public void deshabilitarControles() {
-        txtNombres.setEnabled(false);
-        txtEmailLogin.setEnabled(false);
-        txtPasswordLogin.setEnabled(false);
-        btnCrearCuenta.setEnabled(false);
+        txtEmail.setEnabled(false);
+        btnRecodarContrasena.setEnabled(false);
     }
 
     @Override
@@ -107,14 +106,9 @@ public class RegistroFragment extends Fragment implements IRegistroFragmentView 
         progress.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.btnCrearCuenta)
     @Override
-    public void registrar() {
-        String nombres = txtNombres.getText().toString();
-        String email = txtEmailLogin.getText().toString();
-        String password = txtPasswordLogin.getText().toString();
-
-        registroPresenter.registrar(nombres, email, password);
+    public void recordarPassword() {
+        presenter.recordarPassword(txtEmail.getText().toString());
     }
 
     @Override
@@ -122,18 +116,16 @@ public class RegistroFragment extends Fragment implements IRegistroFragmentView 
         Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.txtLogin)
     @Override
-    public void irALogin() {
+    public void irLogin() {
         if (mListener != null) {
             mListener.clickTienesCuenta();
         }
     }
 
-    @Override
-    public void finalizarRegistro() {
+    public void finalizarRecordarPassword() {
         if (mListener != null) {
-            mListener.finalizarRegistro();
+            mListener.finalizarRecordarPassword();
         }
     }
 
@@ -143,11 +135,10 @@ public class RegistroFragment extends Fragment implements IRegistroFragmentView 
      * to the activity and potentially other fragments contained in that
      * activity.
      */
-    public interface OnRegistroInteractionListener {
+    public interface OnRecordarPassInteractionListener {
+
+        void finalizarRecordarPassword();
 
         void clickTienesCuenta();
-
-        void finalizarRegistro();
-
     }
 }

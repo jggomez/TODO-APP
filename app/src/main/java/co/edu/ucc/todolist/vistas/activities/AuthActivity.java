@@ -7,11 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import co.edu.ucc.todolist.R;
 import co.edu.ucc.todolist.vistas.fragmentos.LoginFragment;
+import co.edu.ucc.todolist.vistas.fragmentos.RecordarPasswordFragment;
 import co.edu.ucc.todolist.vistas.fragmentos.RegistroFragment;
 
 public class AuthActivity extends AppCompatActivity
         implements LoginFragment.OnLoginFragmentInteraction,
-        RegistroFragment.OnRegistroInteractionListener {
+        RegistroFragment.OnRegistroInteractionListener, RecordarPasswordFragment.OnRecordarPassInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,25 @@ public class AuthActivity extends AppCompatActivity
     }
 
     @Override
-    public void irALogin() {
+    public void irRecordarPassword() {
+        FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.frameAuthActivity, RecordarPasswordFragment.newInstance());
+        transaction.commit();
+    }
+
+    @Override
+    public void finalizarRecordarPassword() {
+        FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.frameAuthActivity, LoginFragment.newInstance());
+        transaction.commit();
+    }
+
+    @Override
+    public void clickTienesCuenta() {
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
 
