@@ -1,4 +1,4 @@
-package co.edu.ucc.todolist.dominio;
+package co.edu.ucc.todolist.util;
 
 /**
  * Created by jggomez on 24-Oct-17.

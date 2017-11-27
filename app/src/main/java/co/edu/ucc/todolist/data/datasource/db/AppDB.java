@@ -1,17 +1,17 @@
-package co.edu.ucc.todolist.repository;
+package co.edu.ucc.todolist.data.datasource.db;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import co.edu.ucc.todolist.modelo.Tarea;
+import co.edu.ucc.todolist.data.modelo.TareaEntity;
 
 /**
  * Created by jggomez on 03-Oct-17.
  */
 
-@Database(entities = {Tarea.class}, version = 1)
+@Database(entities = {TareaEntity.class}, version = 1)
 public abstract class AppDB extends RoomDatabase {
 
     private static AppDB instancia = null;

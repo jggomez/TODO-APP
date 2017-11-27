@@ -1,4 +1,4 @@
-package co.edu.ucc.todolist.repository;
+package co.edu.ucc.todolist.data.datasource.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -8,6 +8,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import co.edu.ucc.todolist.data.modelo.TareaEntity;
 import co.edu.ucc.todolist.modelo.Tarea;
 
 /**
@@ -17,18 +18,18 @@ import co.edu.ucc.todolist.modelo.Tarea;
 public interface TareaDAO {
 
     @Insert
-    void insert(Tarea... tareas);
+    void insertar(TareaEntity... tareas);
 
     @Update
-    void update(Tarea... tareas);
+    void actualizar(TareaEntity... tareas);
 
     @Delete
-    void delete(Tarea... tarea);
+    void eliminar(TareaEntity... tarea);
 
-    @Query("select * from tareas")
-    List<Tarea> obtenerTodos();
+    @Query("select * from tareasentity")
+    List<TareaEntity> obtenerTodos();
 
-    @Query("select * from tareas where id = :id")
-    Tarea obtenerXID(int id);
+    @Query("select * from tareasentity where id = :id")
+    TareaEntity obtenerXID(int id);
 
 }

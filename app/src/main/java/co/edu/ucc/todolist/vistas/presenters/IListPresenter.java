@@ -12,7 +12,7 @@ public interface IListPresenter {
 
     void addTarea(String descTarea);
 
-    List<Tarea> obtenerTareas();
+    void obtenerTareas();
 
     void itemCambioEstado(int posicion, boolean realizado);
 

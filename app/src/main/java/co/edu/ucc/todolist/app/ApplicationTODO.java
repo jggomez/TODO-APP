@@ -2,7 +2,7 @@ package co.edu.ucc.todolist.app;
 
 import android.app.Application;
 
-import co.edu.ucc.todolist.repository.AppDB;
+import co.edu.ucc.todolist.data.datasource.db.AppDB;
 
 /**
  * Created by jggomez on 03-Oct-17.

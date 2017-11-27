@@ -31,10 +31,10 @@ public class RecordarPasswordFragment extends Fragment implements IRecordarPassw
     private IRecordarPasswordPresenter presenter;
 
     @BindView(R.id.txtEmail)
-    private EditText txtEmail;
+    EditText txtEmail;
 
     @BindView(R.id.btnRecodarContrasena)
-    private Button btnRecodarContrasena;
+    Button btnRecodarContrasena;
 
     @BindView(R.id.progress)
     ProgressBar progress;

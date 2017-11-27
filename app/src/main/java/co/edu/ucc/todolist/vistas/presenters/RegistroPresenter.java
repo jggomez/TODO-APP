@@ -1,6 +1,6 @@
 package co.edu.ucc.todolist.vistas.presenters;
 
-import co.edu.ucc.todolist.dominio.CallBackInteractor;
+import co.edu.ucc.todolist.util.CallBackInteractor;
 import co.edu.ucc.todolist.dominio.ILUsuario;
 import co.edu.ucc.todolist.dominio.LUsuario;
 import co.edu.ucc.todolist.modelo.Usuario;

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,16 +61,16 @@ public class ListActivity extends AppCompatActivity implements
 
         nvList.setNavigationItemSelectedListener(this);
 
-        listPresenter = new ListPresenter(this);
+        listPresenter = new ListPresenter(this, getApplicationContext());
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         rvListTODO.setLayoutManager(llm);
 
-        List<Tarea> lsTarea = listPresenter.obtenerTareas();
+        listPresenter.obtenerTareas();
 
-        adapter = new TodoListAdapter(lsTarea, this);
+        adapter = new TodoListAdapter(new ArrayList<Tarea>(), this);
 
         rvListTODO.setAdapter(adapter);
 
@@ -124,7 +125,7 @@ public class ListActivity extends AppCompatActivity implements
             finish();
         }
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             dlList.openDrawer(GravityCompat.START);
         }
 
@@ -136,11 +137,11 @@ public class ListActivity extends AppCompatActivity implements
 
         int id = item.getItemId();
 
-        if(id == R.id.nv_addTarea){
+        if (id == R.id.nv_addTarea) {
             Toast.makeText(this, "Click en Add Tarea", Toast.LENGTH_SHORT).show();
         }
 
-        if(id == R.id.nv_contactenos){
+        if (id == R.id.nv_contactenos) {
             Toast.makeText(this, "Click en Contactenos", Toast.LENGTH_SHORT).show();
         }
 

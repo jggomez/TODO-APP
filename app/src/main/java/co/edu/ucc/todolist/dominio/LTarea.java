@@ -1,10 +1,10 @@
 package co.edu.ucc.todolist.dominio;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.ucc.todolist.dominio.repositorio.TareaRepository;
 import co.edu.ucc.todolist.modelo.Tarea;
-import co.edu.ucc.todolist.repository.AppDB;
+import co.edu.ucc.todolist.util.CallBackInteractor;
 
 /**
  * Created by jggomez on 05-Sep-17.
@@ -12,29 +12,29 @@ import co.edu.ucc.todolist.repository.AppDB;
 
 public class LTarea implements ILtarea {
 
-    private AppDB database;
+    private final TareaRepository tareaRepository;
 
-    public LTarea(){
-        database = AppDB.getInstancia();
+    public LTarea(TareaRepository tareaRepository) {
+        this.tareaRepository = tareaRepository;
     }
 
     @Override
-    public void addTarea(Tarea tarea){
-        database.getTareaDAO().insert(tarea);
+    public void add(Tarea tarea, CallBackInteractor<Boolean> callBackInteractor) {
+        tareaRepository.adicionar(tarea, callBackInteractor);
     }
 
     @Override
-    public List<Tarea> getTareas(){
-        return database.getTareaDAO().obtenerTodos();
+    public void getTareas(CallBackInteractor<List<Tarea>> callBackInteractor) {
+        tareaRepository.obtenerTodas(callBackInteractor);
     }
 
     @Override
-    public void actualizar(Tarea... tareas) {
-        database.getTareaDAO().update(tareas);
+    public void obtenerXID(int id, CallBackInteractor<Tarea> callBackInteractor) {
+        tareaRepository.obtenerxId(id, callBackInteractor);
     }
 
     @Override
-    public Tarea obtenerXID(int id) {
-        return database.getTareaDAO().obtenerXID(id);
+    public void actualizar(Tarea tarea, CallBackInteractor<Boolean> callBackInteractor) {
+        tareaRepository.actualizar(tarea, callBackInteractor);
     }
 }
